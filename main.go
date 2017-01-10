@@ -84,6 +84,7 @@ func readFile() {
 
 }
 
+//calculate headings and steps
 func parseHeadings() {
 
 	first := Tuple{0.00, 0, 0}
@@ -108,6 +109,7 @@ func parseHeadings() {
 
 }
 
+//quick drawing to check for intersection
 func drawPath() {
 	dest := image.NewRGBA(image.Rect(0, 0, 1200, 1200.0))
 	gc := draw2dimg.NewGraphicContext(dest)
@@ -126,12 +128,14 @@ func drawPath() {
 	draw2dimg.SaveToPngFile("pathline.png", dest)
 }
 
+//hashing function
 func GetMD5Hash(text string) string {
 	hasher := md5.New()
 	hasher.Write([]byte(text))
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
+//calculate all plotpoints for Santa's path
 func iIntersection() {
 
 	first := Tuple{0.00, 0, 0}
@@ -154,6 +158,7 @@ func iIntersection() {
 	log.Println(strconv.Itoa(count))
 }
 
+//hash and load Santa's path into sets
 func firstIntersection() {
 	intersectionSet := set.NewSet()
 	for j := 0; j < len(iInput); j++ {
@@ -162,13 +167,11 @@ func firstIntersection() {
 		flag := intersectionSet.Contains(hashedCoords)
 
 		if flag == true {
-			//rads := strconv.FormatFloat(iInput[j].rad, 'E', 4, 64)
 			gx := strconv.Itoa(iInput[j].gx)
 			gy := strconv.Itoa(iInput[j].gy)
 			strFlag := strconv.FormatBool(flag)
 			fmt.Printf("(%s, %s) - %s -(%v) \n", gx, gy, hashedCoords, strFlag)
 		} else {
-			//rads := strconv.FormatFloat(iInput[j].rad, 'E', 4, 64)
 			gx := strconv.Itoa(iInput[j].gx)
 			gy := strconv.Itoa(iInput[j].gy)
 			strFlag := strconv.FormatBool(flag)
